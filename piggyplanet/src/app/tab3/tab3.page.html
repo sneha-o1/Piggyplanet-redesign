@@ -1,0 +1,445 @@
+<ion-content [fullscreen]="true" (ionScroll)="onScroll($event)" [style.background]="bgGradient">
+
+  <!-- Header Section -->
+  <ion-header class="app-header">
+    <ion-toolbar class="header-toolbar">
+      <div class="header-content">
+        <div class="header-left">
+          <!-- 👇 Investment header animation on the left -->
+          <div id="investment-header-animation" class="header-lottie" style="width: 70px; height: 70px;"></div>
+          <div class="title-block">
+            <div class="app-name">Invest Small</div>
+            <div class="app-sub">Invest smart, grow your coins</div>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <div id="invest-header-animation" class="avatar-lottie" style="width: 70px; height: 70px;"></div>
+        </div>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="invest-content">
+
+    <!-- 👇 Main investment animation between header and balance card -->
+    <div id="invest-main-animation" class="main-investment-lottie" style="width: 120px; height: 120px; margin: 0 auto 20px;"></div>
+
+    <!-- Enhanced Balance Card -->
+    <div class="balance-card">
+      <div class="balance-header">
+        <h2>Your PiggyCoins</h2>
+        <div class="coin-stack">
+          <!-- 👇 Replaced coin animation with piggycoins.json -->
+          <div id="piggycoins-animation" class="piggycoins-lottie" style="width: 60px; height: 60px;"></div>
+        </div>
+      </div>
+      <h1 class="balance-amount">{{ balance | number:'1.0-0' }}</h1>
+      <div class="balance-details">
+        <div class="detail-item">
+          <span class="label">Total Invested:</span>
+          <span class="value">{{ getTotalInvested() | number:'1.0-0' }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Total Growth:</span>
+          <span class="value success">+{{ getTotalGrowth() | number:'1.0-2' }}</span>
+        </div>
+      </div>
+      <p class="balance-subtitle">Available to invest 💰</p>
+    </div>
+
+    <!-- Investment Options -->
+    <div class="section-title">Choose Your Investment World 🌍</div>
+    <div class="investment-grid">
+      <!-- Eco Forest Card -->
+      <div class="investment-card eco-forest">
+        <div class="card-top">
+          <h3>Eco Forest</h3>
+          <div class="investment-icon eco-forest-icon">
+            <!-- 👇 Replaced icon with invest1.json -->
+            <div id="invest1-animation" class="card-lottie" style="width: 50px; height: 50px;"></div>
+          </div>
+        </div>
+        <p>Grow your money with nature! Plant virtual trees and watch your coins blossom like spring flowers! 🌳</p>
+        <div class="investment-stats">
+          <span class="rate">+5% weekly</span>
+          <span class="risk risk-low">low risk</span>
+        </div>
+        <div class="card-footer">
+          <div class="invested-amount" *ngIf="getInvestmentTotal('eco-forest') > 0">
+            Invested: {{ getInvestmentTotal('eco-forest') | number }} coins
+          </div>
+          <ion-button 
+            fill="solid" 
+            size="small" 
+            (click)="openInvestModal(investmentOptions[0])"
+            class="invest-button">
+            <ion-icon 
+              [name]="getInvestmentTotal('eco-forest') > 0 ? 'add-circle' : 'trending-up'" 
+              slot="start">
+            </ion-icon>
+            {{ getInvestmentTotal('eco-forest') > 0 ? 'Invest More' : 'Invest Now' }}
+          </ion-button>
+        </div>
+      </div>
+
+      <!-- Tech Planet Card -->
+      <div class="investment-card tech-planet">
+        <div class="card-top">
+          <h3>Tech Planet</h3>
+          <div class="investment-icon tech-planet-icon">
+            <!-- 👇 Replaced icon with invest2.json -->
+            <div id="invest2-animation" class="card-lottie" style="width: 50px; height: 50px;"></div>
+          </div>
+        </div>
+        <p>Invest in future technology. Ride the rocket of innovation to digital wealth! 🚀</p>
+        <div class="investment-stats">
+          <span class="rate">+8% weekly</span>
+          <span class="risk risk-medium">medium risk</span>
+        </div>
+        <div class="card-footer">
+          <div class="invested-amount" *ngIf="getInvestmentTotal('tech-planet') > 0">
+            Invested: {{ getInvestmentTotal('tech-planet') | number }} coins
+          </div>
+          <ion-button 
+            fill="solid" 
+            size="small" 
+            (click)="openInvestModal(investmentOptions[1])"
+            class="invest-button">
+            <ion-icon 
+              [name]="getInvestmentTotal('tech-planet') > 0 ? 'add-circle' : 'trending-up'" 
+              slot="start">
+            </ion-icon>
+            {{ getInvestmentTotal('tech-planet') > 0 ? 'Invest More' : 'Invest Now' }}
+          </ion-button>
+        </div>
+      </div>
+
+      <!-- Magic Kingdom Card -->
+      <div class="investment-card magic-kingdom">
+        <div class="card-top">
+          <h3>Magic Kingdom</h3>
+          <div class="investment-icon magic-kingdom-icon">
+            <!-- 👇 Replaced icon with invest3.json -->
+            <div id="invest3-animation" class="card-lottie" style="width: 50px; height: 50px;"></div>
+          </div>
+        </div>
+        <p>Magical investments await! Where coins multiply like rabbits in a hat! 🎩</p>
+        <div class="investment-stats">
+          <span class="rate">+12% weekly</span>
+          <span class="risk risk-high">high risk</span>
+        </div>
+        <div class="card-footer">
+          <div class="invested-amount" *ngIf="getInvestmentTotal('magic-kingdom') > 0">
+            Invested: {{ getInvestmentTotal('magic-kingdom') | number }} coins
+          </div>
+          <ion-button 
+            fill="solid" 
+            size="small" 
+            (click)="openInvestModal(investmentOptions[2])"
+            class="invest-button">
+            <ion-icon 
+              [name]="getInvestmentTotal('magic-kingdom') > 0 ? 'add-circle' : 'trending-up'" 
+              slot="start">
+            </ion-icon>
+            {{ getInvestmentTotal('magic-kingdom') > 0 ? 'Invest More' : 'Invest Now' }}
+          </ion-button>
+        </div>
+      </div>
+
+      <!-- Dream Studio Card -->
+      <div class="investment-card dream-studio">
+        <div class="card-top">
+          <h3>Dream Studio</h3>
+          <div class="investment-icon dream-studio-icon">
+            <!-- 👇 Replaced icon with invest4.json -->
+            <div id="invest4-animation" class="card-lottie" style="width: 50px; height: 50px;"></div>
+          </div>
+        </div>
+        <p>Support creativity and dreams! Turn imagination into coin-treasure! ✨</p>
+        <div class="investment-stats">
+          <span class="rate">+7% weekly</span>
+          <span class="risk risk-medium">medium risk</span>
+        </div>
+        <div class="card-footer">
+          <div class="invested-amount" *ngIf="getInvestmentTotal('dream-studio') > 0">
+            Invested: {{ getInvestmentTotal('dream-studio') | number }} coins
+          </div>
+          <ion-button 
+            fill="solid" 
+            size="small" 
+            (click)="openInvestModal(investmentOptions[3])"
+            class="invest-button">
+            <ion-icon 
+              [name]="getInvestmentTotal('dream-studio') > 0 ? 'add-circle' : 'trending-up'" 
+              slot="start">
+            </ion-icon>
+            {{ getInvestmentTotal('dream-studio') > 0 ? 'Invest More' : 'Invest Now' }}
+          </ion-button>
+        </div>
+      </div>
+
+      <!-- Space Explorer Card -->
+      <div class="investment-card space-explorer">
+        <div class="card-top">
+          <h3>Space Explorer</h3>
+          <div class="investment-icon space-explorer-icon">
+            <!-- 👇 Replaced icon with invest5.json -->
+            <div id="invest5-animation" class="card-lottie" style="width: 50px; height: 50px;"></div>
+          </div>
+        </div>
+        <p>Reach for the stars! Your coins will orbit and multiply in the cosmic bank! 🌌</p>
+        <div class="investment-stats">
+          <span class="rate">+10% weekly</span>
+          <span class="risk risk-medium">medium risk</span>
+        </div>
+        <div class="card-footer">
+          <div class="invested-amount" *ngIf="getInvestmentTotal('space-explorer') > 0">
+            Invested: {{ getInvestmentTotal('space-explorer') | number }} coins
+          </div>
+          <ion-button 
+            fill="solid" 
+            size="small" 
+            (click)="openInvestModal(investmentOptions[4])"
+            class="invest-button">
+            <ion-icon 
+              [name]="getInvestmentTotal('space-explorer') > 0 ? 'add-circle' : 'trending-up'" 
+              slot="start">
+            </ion-icon>
+            {{ getInvestmentTotal('space-explorer') > 0 ? 'Invest More' : 'Invest Now' }}
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Investment History Section -->
+    <div class="history-section" *ngIf="userInvestments.length > 0">
+      <h2 class="section-title">Your Investment Portfolio 📊</h2>
+      <div class="history-list">
+        <div *ngFor="let investment of userInvestments" class="history-card" [ngClass]="getInvestmentTheme(investment.investmentId)">
+          <div class="history-header">
+            <div class="investment-info">
+              <div class="theme-icon-small" [ngClass]="getInvestmentTheme(investment.investmentId) + '-icon'">
+                <!-- Using the same card animations for history -->
+                <div [id]="'history-' + investment.investmentId + '-animation'" class="history-lottie" style="width: 40px; height: 40px;"></div>
+              </div>
+              <div class="investment-details">
+                <h4>{{ getInvestmentName(investment.investmentId) }}</h4>
+                <span class="investment-date">{{ formatDate(investment.startDate) }}</span>
+              </div>
+            </div>
+            <div class="investment-amount">
+              <span class="amount">{{ investment.amount | number }}</span>
+              <span class="coin-symbol">₱</span>
+            </div>
+          </div>
+          <div class="growth-info">
+            <div class="growth-item">
+              <span class="label">Growth:</span>
+              <span class="value success">+{{ investment.totalGrowth | number:'1.2-2' }} coins</span>
+            </div>
+            <div class="growth-item">
+              <span class="label">Total Value:</span>
+              <span class="value">{{ (investment.amount + investment.totalGrowth) | number:'1.2-2' }} coins</span>
+            </div>
+          </div>
+          <div class="progress-section">
+            <div class="progress-label">
+              <span>Growth Progress</span>
+              <span>{{ ((investment.totalGrowth / investment.amount) * 100) | number:'1.1-1' }}%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="Math.min((investment.totalGrowth / investment.amount) * 100, 100)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Investment Tips Section -->
+    <div class="tips-section">
+      <h2 class="section-title">Investment Fun & Facts 💡</h2>
+      <div class="scroll-row" #autoScrollRow>
+        <!-- 👇 Replaced all tip images with Lottie animations -->
+        <div class="tip-card tip1">
+          <div class="text">
+            <h4>Save & Grow 🌱</h4>
+            <p>Even a tiny seed can grow into a mighty tree — same with coins!</p>
+          </div>
+          <div id="tip1-animation" class="tip-lottie" style="width: 60px; height: 60px;"></div>
+        </div>
+
+        <div class="tip-card tip2">
+          <div class="text">
+            <h4>Invest Smart 💡</h4>
+            <p>Don't put all coins in one planet! Diversify!</p>
+          </div>
+          <div id="tip2-animation" class="tip-lottie" style="width: 60px; height: 60px;"></div>
+        </div>
+
+        <div class="tip-card tip3">
+          <div class="text">
+            <h4>Patience Pays ⏳</h4>
+            <p>Great returns take time. Be patient!</p>
+          </div>
+          <div id="tip3-animation" class="tip-lottie" style="width: 60px; height: 60px;"></div>
+        </div>
+
+        <div class="tip-card tip4">
+          <div class="text">
+            <h4>Cosmic Coins 🚀</h4>
+            <p>Your coins can orbit and multiply in space!</p>
+          </div>
+          <div id="tip4-animation" class="tip-lottie" style="width: 60px; height: 60px;"></div>
+        </div>
+
+        <div class="tip-card tip5">
+          <div class="text">
+            <h4>Funny Fact 😂</h4>
+            <p>A piggybank never lies — it only squeals with joy!</p>
+          </div>
+          <div id="tip5-animation" class="tip-lottie" style="width: 60px; height: 60px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height: 120px"></div>
+
+    <!-- Enhanced Investment Modal -->
+    <ion-modal [isOpen]="isModalOpen" (ionModalDidDismiss)="closeInvestModal()" class="invest-modal">
+      <ng-template>
+        <div class="modal-container">
+          <!-- Modal Header with Theme -->
+          <div class="modal-header" [ngClass]="selectedInvestment?.theme + '-header'">
+            <div class="modal-theme-icon">
+              <!-- Using the same card animation in modal -->
+              <div [id]="'modal-' + selectedInvestment?.id + '-animation'" class="modal-lottie" style="width: 80px; height: 80px;"></div>
+              <div class="image-glow"></div>
+            </div>
+            <h1 class="modal-title">Invest in {{ selectedInvestment?.name }}</h1>
+            <button class="close-button" (click)="closeInvestModal()">
+              <ion-icon name="close"></ion-icon>
+            </button>
+          </div>
+
+          <!-- Modal Content -->
+          <div class="modal-content">
+            <div class="investment-details">
+              <p class="investment-description">{{ selectedInvestment?.description }}</p>
+              
+              <!-- Current Investment Stats -->
+              <div class="current-investment" *ngIf="getInvestmentTotal(selectedInvestment?.id) > 0">
+                <div class="current-stats">
+                  <div class="stat">
+                    <span class="stat-label">Already Invested</span>
+                    <span class="stat-value">{{ getInvestmentTotal(selectedInvestment?.id) | number }} coins</span>
+                  </div>
+                  <div class="stat">
+                    <span class="stat-label">Current Growth</span>
+                    <span class="stat-value success">+{{ getInvestmentGrowth(selectedInvestment?.id) | number:'1.2-2' }} coins</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Investment Stats -->
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <div class="stat-icon">📈</div>
+                  <div class="stat-info">
+                    <span class="stat-label">Interest Rate</span>
+                    <span class="stat-value success">+{{ selectedInvestment?.interestRate }}% weekly</span>
+                  </div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-icon">🎯</div>
+                  <div class="stat-info">
+                    <span class="stat-label">Risk Level</span>
+                    <span class="stat-value" [ngClass]="'risk-' + getRiskLevel(selectedInvestment?.interestRate)">
+                      {{ getRiskLevel(selectedInvestment?.interestRate) }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Amount Input Section -->
+              <div class="amount-section">
+                <h3>How much to invest? 💰</h3>
+                <div class="amount-input-container">
+                  <div class="coin-symbol">₱</div>
+                  <input 
+                    type="number" 
+                    [(ngModel)]="investmentAmount" 
+                    placeholder="Enter amount"
+                    class="amount-input"
+                    [min]="10"
+                    [max]="balance"
+                  >
+                </div>
+                <div class="balance-info">
+                  Available: {{ balance | number }} coins
+                </div>
+
+                <!-- Quick Amount Buttons -->
+                <div class="quick-amounts">
+                  <button 
+                    *ngFor="let amount of getQuickAmounts()"
+                    class="quick-amount-btn"
+                    (click)="setInvestmentAmount(amount)"
+                    [class.active]="investmentAmount === amount">
+                    {{ amount }}
+                  </button>
+                </div>
+              </div>
+
+              <!-- Growth Projection -->
+              <div class="growth-section" *ngIf="investmentAmount > 0">
+                <h3>Your Growth Journey 🌱</h3>
+                <div class="growth-timeline">
+                  <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                      <span class="timeline-label">1 Week</span>
+                      <span class="timeline-value success">+{{ getProjectedGrowth(7) | number:'1.0-2' }} coins</span>
+                    </div>
+                  </div>
+                  <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                      <span class="timeline-label">1 Month</span>
+                      <span class="timeline-value success">+{{ getProjectedGrowth(30) | number:'1.0-2' }} coins</span>
+                    </div>
+                  </div>
+                  <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                      <span class="timeline-label">3 Months</span>
+                      <span class="timeline-value success">+{{ getProjectedGrowth(90) | number:'1.0-2' }} coins</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="total-projection">
+                  Total after 3 months: <strong class="success">{{ (investmentAmount + getProjectedGrowth(90)) | number:'1.0-2' }} coins</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="modal-actions">
+              <button class="cancel-btn" (click)="closeInvestModal()">Maybe Later</button>
+              <button 
+                class="confirm-btn" 
+                [class.disabled]="!isValidInvestment()"
+                (click)="confirmInvestment()"
+                [disabled]="!isValidInvestment()">
+                <span class="btn-icon">🚀</span>
+                {{ getInvestmentTotal(selectedInvestment?.id) > 0 ? 'Add Investment' : 'Launch Investment!' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ion-modal>
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

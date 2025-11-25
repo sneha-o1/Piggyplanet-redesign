@@ -1,0 +1,101 @@
+<ion-content class="details-content">
+  <!-- Animated Background -->
+  <div class="background-animation"></div>
+  
+  <div class="details-container">
+    <!-- Header -->
+    <div class="details-header">
+      <div class="header-logo">
+        <div id="details-logo" class="details-logo" style="width: 80px; height: 80px;"></div>
+        <h1>Complete Your Profile</h1>
+        <p>Let's set up your PiggyPlanet journey! 🚀</p>
+      </div>
+    </div>
+
+    <!-- Details Form -->
+    <div class="form-wrapper">
+      <form class="details-form" (ngSubmit)="saveDetails()">
+        <!-- Personal Information -->
+        <div class="form-section">
+          <h3 class="section-title">👤 Personal Information</h3>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Your Name</label>
+              <input type="text" class="form-input" [(ngModel)]="userDetails.name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Parent's Name</label>
+              <input type="text" class="form-input" [(ngModel)]="userDetails.parentName" name="parentName" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Date of Birth</label>
+            <input type="date" class="form-input" [(ngModel)]="userDetails.dob" name="dob" required (change)="calculateAge()">
+            <div *ngIf="userDetails.age" class="age-display">
+              🎂 You are {{userDetails.age}} years old
+            </div>
+          </div>
+        </div>
+
+        <!-- Financial Setup -->
+        <div class="form-section">
+          <h3 class="section-title">💰 Financial Setup</h3>
+          
+          <div class="form-group">
+            <label class="form-label">UPI ID</label>
+            <input type="text" class="form-input" [(ngModel)]="userDetails.upiId" name="upiId" placeholder="yourname@upi" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Monthly Allowance (₹)</label>
+            <input type="number" class="form-input" [(ngModel)]="userDetails.monthlyAllowance" name="monthlyAllowance" required>
+          </div>
+        </div>
+
+        <!-- Security -->
+        <div class="form-section">
+          <h3 class="section-title">🔒 Security</h3>
+          
+          <div class="form-group">
+            <label class="form-label">Create 6-Digit Parental Code</label>
+            <input type="text" class="form-input" [(ngModel)]="userDetails.parentalCode" name="parentalCode" 
+                   maxlength="6" pattern="[0-9]{6}" placeholder="123456" required>
+            <small class="hint">Parents will use this code to approve transactions</small>
+          </div>
+
+
+          <div class="form-group">
+            <label class="form-label">Confirm Parental Code</label>
+            <input type="text" class="form-input" [(ngModel)]="userDetails.confirmParentalCode" name="confirmParentalCode" 
+                   maxlength="6" pattern="[0-9]{6}" placeholder="123456" required>
+          </div>
+        </div>
+
+        <!-- Savings Goal -->
+        <div class="form-section">
+          <h3 class="section-title">🎯 Savings Goal</h3>
+          
+          <div class="form-group">
+            <label class="form-label">What are you saving for?</label>
+            <input type="text" class="form-input" [(ngModel)]="userDetails.savingsGoal" name="savingsGoal" 
+                   placeholder="New bicycle, Video game, College fund..." required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Target Amount (₹)</label>
+            <input type="number" class="form-input" [(ngModel)]="userDetails.targetAmount" name="targetAmount" required>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-button complete-btn" [disabled]="!isFormValid()">
+          <ion-icon name="rocket-outline"></ion-icon>
+          Launch PiggyPlanet!
+        </button>
+      </form>
+    </div>
+  </div>
+</ion-content>

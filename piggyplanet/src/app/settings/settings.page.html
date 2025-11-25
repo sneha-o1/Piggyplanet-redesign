@@ -1,0 +1,274 @@
+<ion-content class="settings-content">
+  <!-- Animated Background -->
+  <div class="background-animation"></div>
+  
+  <div class="settings-container">
+    <!-- Header -->
+    <div class="settings-header">
+      <div class="header-back">
+        <ion-button fill="clear" routerLink="/tabs/tab5" class="back-btn">
+          <ion-icon name="arrow-back" slot="start"></ion-icon>
+          Back
+        </ion-button>
+      </div>
+      <div class="header-title">
+        <h1>Settings ⚙️</h1>
+        <p>Manage your account and preferences</p>
+      </div>
+    </div>
+
+    <!-- User Profile Card -->
+    <div class="profile-card">
+      <div class="profile-avatar">
+        <img [src]="user.avatar" alt="User Avatar" class="avatar" />
+        <div class="online-dot"></div>
+      </div>
+      <div class="profile-info">
+        <h3>{{ user.name }}</h3>
+        <p>Age: {{ user.age }} • Member since {{ joinDate }}</p>
+        <div class="profile-stats">
+          <div class="stat">
+            <strong>{{ user.totalCoins | number }}</strong>
+            <span>Total Coins</span>
+          </div>
+          <div class="stat">
+            <strong>{{ user.savingsGoals }}</strong>
+            <span>Goals</span>
+          </div>
+          <div class="stat">
+            <strong>{{ user.streakDays }}</strong>
+            <span>Day Streak</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Sections -->
+    <div class="settings-sections">
+      <!-- Account Settings -->
+      <div class="settings-section">
+        <h3 class="section-title">👤 Account Settings</h3>
+        
+        <div class="setting-item" (click)="editProfile()">
+          <div class="setting-icon">
+            <ion-icon name="person-outline"></ion-icon>
+          </div>
+          <div class="setting-content">
+            <h4>Edit Profile</h4>
+            <p>Update your personal information</p>
+          </div>
+          <ion-icon name="chevron-forward" class="chevron"></ion-icon>
+        </div>
+
+        <div class="setting-item" (click)="changeParentalCode()">
+          <div class="setting-icon">
+            <ion-icon name="key-outline"></ion-icon>
+          </div>
+          <div class="setting-content">
+            <h4>Parental Code</h4>
+            <p>Change your 6-digit parental code</p>
+          </div>
+          <ion-icon name="chevron-forward" class="chevron"></ion-icon>
+        </div>
+
+        <div class="setting-item" (click)="manageUPI()">
+          <div class="setting-icon">
+            <ion-icon name="wallet-outline"></ion-icon>
+          </div>
+          <div class="setting-content">
+            <h4>UPI & Payment Methods</h4>
+            <p>Manage your UPI ID and payment options</p>
+          </div>
+          <ion-icon name="chevron-forward" class="chevron"></ion-icon>
+        </div>
+      </div>
+
+      <!-- Notifications -->
+      <div class="settings-section">
+        <h3 class="section-title">🔔 Notifications</h3>
+        
+        <div class="setting-item toggle-item">
+          <div class="setting-icon">
+            <ion-icon name="notifications-outline"></ion-icon>
+          </div>
+          <div class="setting-content">
+            <h4>Push Notifications</h4>
+            <p>Receive alerts and reminders</p>
+          </div>
+          <ion-toggle [(ngModel)]="notifications.push" (ionChange)="saveNotificationSettings()"></ion-toggle>
+        </div>
+
+        <div class="setting-item toggle-item">
+          <div class="setting-icon">
+            <ion-icon name="mail-outline"></ion-icon>
+          </div>
+          <div class="setting-content">
+            <h4>Email Notifications</h4>
+            <p>Get updates via email</p>
+          </div>
+          <ion-toggle [(ngModel)]="notifications.email" (ionChange)="saveNotificationSettings()"></ion-toggle>
+        </div>
+
+        <div class="setting-item toggle-item">
+          <div class="setting-icon">
+            <ion-icon name="trending-up-outline"></ion-icon>
+          </div>
+          <div class="setting-content">
+            <h4>Goal Progress Updates</h4>
+            <p>Weekly progress reports</p>
+          </div>
+          <ion-toggle [(ngModel)]="notifications.progress" (ionChange)="saveNotificationSettings()"></ion-toggle>
+        </div>
+      </div>
+
+      <!-- Security & Privacy -->
+      <div class="settings-section">
+        <h3 class="section-title">🔒 Security & Privacy</h3>
+        
+        <div class="setting-item" (click)="changePassword()">
+          <div class="setting-icon">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+          </div>
+          <div class="setting-content">
+            <h4>Change Password</h4>
+            <p>Update your account password</p>
+          </div>
+          <ion-icon name="chevron-forward" class="chevron"></ion-icon>
+        </div>
+
+        <div class="setting-item toggle-item">
+          <div class="setting-icon">
+            <ion-icon name="finger-print-outline"></ion-icon>
+          </div>
+          <div class="setting-content">
+            <h4>Biometric Login</h4>
+            <p>Use fingerprint or face ID</p>
+          </div>
+          <ion-toggle [(ngModel)]="security.biometric" (ionChange)="saveSecuritySettings()"></ion-toggle>
+        </div>
+
+        <div class="setting-item" (click)="privacySettings()">
+          <div class="setting-icon">
+            <ion-icon name="shield-checkmark-outline"></ion-icon>
+          </div>
+          <div class="setting-content">
+            <h4>Privacy Settings</h4>
+            <p>Control your data and privacy</p>
+          </div>
+          <ion-icon name="chevron-forward" class="chevron"></ion-icon>
+        </div>
+      </div>
+
+      <!-- Transaction History -->
+      <div class="settings-section">
+        <h3 class="section-title">💰 Transaction History</h3>
+        
+        <div class="transaction-filters">
+          <ion-segment [(ngModel)]="transactionFilter" (ionChange)="filterTransactions()">
+            <ion-segment-button value="all">
+              <ion-label>All</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="deposit">
+              <ion-label>Deposits</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="withdrawal">
+              <ion-label>Withdrawals</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </div>
+
+        <div class="transactions-list">
+          <div *ngFor="let transaction of filteredTransactions" 
+               class="transaction-item" 
+               [class.deposit]="transaction.type === 'deposit'"
+               [class.withdrawal]="transaction.type === 'withdrawal'">
+            <div class="transaction-icon">
+              <ion-icon [name]="getTransactionIcon(transaction.type)"></ion-icon>
+            </div>
+            <div class="transaction-details">
+              <h4>{{ transaction.description }}</h4>
+              <p class="transaction-date">{{ transaction.date | date:'MMM d, yyyy' }}</p>
+              <p class="transaction-reason" *ngIf="transaction.reason">{{ transaction.reason }}</p>
+            </div>
+            <div class="transaction-amount" [class.positive]="transaction.type === 'deposit'">
+              <span *ngIf="transaction.type === 'deposit'">+</span>
+              <span *ngIf="transaction.type === 'withdrawal'">-</span>
+              ₹{{ transaction.amount | number }}
+            </div>
+          </div>
+
+          <div *ngIf="filteredTransactions.length === 0" class="no-transactions">
+            <ion-icon name="receipt-outline"></ion-icon>
+            <p>No transactions found</p>
+          </div>
+        </div>
+
+        <div class="transaction-stats">
+          <div class="stat-card">
+            <h4>Total Deposits</h4>
+            <p class="amount positive">₹{{ totalDeposits | number }}</p>
+          </div>
+          <div class="stat-card">
+            <h4>Total Withdrawals</h4>
+            <p class="amount negative">₹{{ totalWithdrawals | number }}</p>
+          </div>
+          <div class="stat-card">
+            <h4>Current Balance</h4>
+            <p class="amount neutral">₹{{ currentBalance | number }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Support & About -->
+      <div class="settings-section">
+        <h3 class="section-title">ℹ️ Support & About</h3>
+        
+        <div class="setting-item" (click)="contactSupport()">
+          <div class="setting-icon">
+            <ion-icon name="help-buoy-outline"></ion-icon>
+          </div>
+          <div class="setting-content">
+            <h4>Help & Support</h4>
+            <p>Get help with PiggyPlanet</p>
+          </div>
+          <ion-icon name="chevron-forward" class="chevron"></ion-icon>
+        </div>
+
+        <div class="setting-item" (click)="aboutApp()">
+          <div class="setting-icon">
+            <ion-icon name="information-circle-outline"></ion-icon>
+          </div>
+          <div class="setting-content">
+            <h4>About PiggyPlanet</h4>
+            <p>Version 1.0.0</p>
+          </div>
+          <ion-icon name="chevron-forward" class="chevron"></ion-icon>
+        </div>
+
+        <div class="setting-item" (click)="rateApp()">
+          <div class="setting-icon">
+            <ion-icon name="star-outline"></ion-icon>
+          </div>
+          <div class="setting-content">
+            <h4>Rate App</h4>
+            <p>Share your feedback</p>
+          </div>
+          <ion-icon name="chevron-forward" class="chevron"></ion-icon>
+        </div>
+
+        <div class="setting-item logout-item" (click)="logout()">
+          <div class="setting-icon">
+            <ion-icon name="log-out-outline"></ion-icon>
+          </div>
+          <div class="setting-content">
+            <h4>Log Out</h4>
+            <p>Sign out of your account</p>
+          </div>
+          <ion-icon name="chevron-forward" class="chevron"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <div style="height: 50px"></div>
+  </div>
+</ion-content>

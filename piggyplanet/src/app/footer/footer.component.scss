@@ -1,0 +1,202 @@
+.app-footer {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px 16px;
+  border-top: 4px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.footer-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.footer-text {
+  text-align: center;
+  color: white;
+}
+
+.footer-copyright {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.footer-tagline {
+  font-size: 12px;
+  margin: 0;
+  opacity: 0.9;
+  font-weight: 500;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.footer-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.coin {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 12px;
+  color: #b8860b;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  animation: floatCoin 4s ease-in-out infinite;
+}
+
+.coin-1 {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.coin-2 {
+  top: 60%;
+  right: 15%;
+  animation-delay: 1.3s;
+}
+
+.coin-3 {
+  bottom: 30%;
+  left: 20%;
+  animation-delay: 2.6s;
+}
+
+@keyframes floatCoin {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-8px) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+/* Background pattern */
+.app-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 2%, transparent 2%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 2%, transparent 2%),
+    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 1%, transparent 1%);
+  background-size: 50px 50px, 60px 60px, 70px 70px;
+  animation: backgroundMove 20s linear infinite;
+  z-index: 1;
+}
+
+@keyframes backgroundMove {
+  0% {
+    background-position: 0 0, 0 0, 0 0;
+  }
+  100% {
+    background-position: 50px 50px, 60px 60px, 70px 70px;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app-footer {
+    padding: 16px 12px;
+  }
+
+  .footer-content {
+    gap: 12px;
+  }
+
+  .footer-animation {
+    lottie-player {
+      width: 60px !important;
+      height: 60px !important;
+    }
+  }
+
+  .footer-copyright {
+    font-size: 13px;
+  }
+
+  .footer-tagline {
+    font-size: 11px;
+  }
+
+  .coin {
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-footer {
+    padding: 12px 8px;
+  }
+
+  .footer-animation {
+    lottie-player {
+      width: 50px !important;
+      height: 50px !important;
+    }
+  }
+
+  .footer-copyright {
+    font-size: 12px;
+  }
+
+  .footer-tagline {
+    font-size: 10px;
+  }
+}
+
+/* Hover effects */
+.footer-animation:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+/* Ensure the footer stays at bottom when used in tabs */
+:host {
+  display: block;
+  width: 100%;
+}

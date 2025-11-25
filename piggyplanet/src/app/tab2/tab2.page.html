@@ -1,0 +1,86 @@
+<ion-header class="app-header" #header>
+  <ion-toolbar class="header-toolbar earn-header">
+    
+    <!-- Center title -->
+    <div class="header-center">
+      <div class="app-name">Earn Coins</div>
+      <div class="app-sub">Complete tasks to earn rewards!</div>
+    </div>
+
+    <!-- Right Lottie animation -->
+    <div class="header-lottie" (click)="openProfile()">
+      <ng-lottie
+        [options]="lottieOptions"
+        (animationCreated)="animationCreated($event)"
+        class="lottie-animation"
+      ></ng-lottie>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content
+  [ngStyle]="{ background: bgGradient, transition: 'background 0.6s ease' }"
+  class="earn-content"
+  [scrollEvents]="true"
+  (ionScroll)="onScroll($event)"
+>
+  <section class="intro">
+    <h2>Complete Tasks to Earn!</h2>
+    <p>Finish your chores and earn coins for your goals 💪</p>
+  </section>
+
+  <section class="tasks-list">
+    <div
+      class="task-card"
+      *ngFor="let task of tasks"
+      [style.background]="task.color"
+    >
+      <div class="task-left">
+        <img [src]="task.icon" alt="icon" class="task-icon" />
+        <div>
+          <h3>{{ task.title }}</h3>
+          <p>{{ task.description }}</p>
+          <p class="reward">Reward: {{ task.reward }} coins</p>
+        </div>
+      </div>
+
+      <div class="task-footer">
+
+        <!-- STATUS BADGE FIXED -->
+        <ion-badge
+          class="status-badge"
+          [ngClass]="{
+            completed: task.completed,
+            waiting: task.waiting
+          }"
+        >
+          {{
+            task.completed
+              ? 'completed'
+              : task.waiting
+              ? 'waiting for confirmation'
+              : 'pending'
+          }}
+        </ion-badge>
+
+        <!-- BUTTON FIXED -->
+        <ion-button
+          class="complete-btn"
+          expand="block"
+          shape="round"
+          (click)="markComplete(task)"
+        >
+          {{
+            task.completed
+              ? 'Completed 🎉'
+              : task.waiting
+              ? 'Waiting...'
+              : 'Mark as Complete'
+          }}
+        </ion-button>
+      </div>
+    </div>
+  </section>
+
+  <app-footer></app-footer>
+</ion-content>

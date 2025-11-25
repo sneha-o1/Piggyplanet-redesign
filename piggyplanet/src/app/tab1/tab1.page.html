@@ -1,0 +1,255 @@
+<ion-header class="app-header">
+  <ion-toolbar class="header-toolbar">
+    <div class="header-content">
+      <div class="header-left">
+        <!-- 👇 Logo Lottie animation with increased size -->
+        <div id="logo-container" class="logo-lottie" style="width: 80px; height: 80px;"></div>
+
+        <div class="title-block">
+          <div class="app-name">PiggyPlanet</div>
+          <div class="app-sub">Grow your money, grow your dreams</div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="avatar-wrap" (click)="openProfile()">
+          <!-- 👇 Avatar Lottie animation with increased size -->
+          <div id="avatar-animation" class="avatar-lottie" style="width: 60px; height: 60px;"></div>
+          <div class="online-dot"></div>
+        </div>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content
+  [ngStyle]="{ background: bgGradient, transition: 'background 0.7s ease' }"
+  class="home-content"
+  [scrollEvents]="true"
+  (ionScroll)="onScroll($event)"
+  (mouseup)="onMouseUp()"
+  (touchend)="onTouchEnd()"
+>
+  <!-- Greeting -->
+  <section class="greeting">
+    <!-- use stored name if available -->
+    <h1>Hi {{ userName || 'Emma' }}! <span class="wave">👋</span></h1>
+    <p class="subtitle">Grow your money, grow your dreams!</p>
+  </section>
+
+  <!-- Top area -->
+  <section class="top-area">
+    <div class="actions-col">
+      <button class="cartoon-btn add-btn" (click)="openAddMoneyModal()">
+        <!-- 👇 Add Money Lottie animation with increased size -->
+        <div id="add-money-animation" class="button-lottie add-money-lottie" style="width: 48px; height: 48px;"></div>
+        <span>Add Money</span>
+      </button>
+
+      <button class="cartoon-btn square-btn" routerLink="/set-goal">
+        <!-- 👇 Set Goal Lottie animation with increased size -->
+        <div id="set-goal-animation" class="button-lottie set-goal-lottie" style="width: 48px; height: 48px;"></div>
+        <span>Set Goal</span>
+      </button>
+
+      <button class="cartoon-btn square-btn" (click)="viewTasks()" routerLink="/tabs/tab2">
+        <!-- 👇 Earn Lottie animation with increased size -->
+        <div id="earn-animation" class="button-lottie earn-lottie" style="width: 48px; height: 48px;"></div>
+        <span>Earn</span>
+      </button>
+    </div>
+
+    <div class="piggy-col" [style.transform]="piggyParallax">
+      <!-- 👇 Piggy Lottie animation with increased size -->
+      <div id="piggy-animation" class="piggy-lottie" style="width: 200px; height: 200px;"></div>
+      <div class="progress-row">
+        <ion-progress-bar [value]="savings / goal" mode="md"></ion-progress-bar>
+        <div class="progress-text">{{ percentFull }}% Full</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cartoonish Square Savings Box with Flip Card -->
+  <section class="savings-square">
+    <div class="flip-card" [class.flipped]="isCardFlipped">
+      <!-- Front Side - Savings Card -->
+      <div class="flip-card-front">
+        <div class="savings-box">
+          <div class="badge">Your Treasure Box 💰</div>
+          <div class="coin-glow"></div>
+
+          <div class="savings-info">
+            <h3>Total Savings</h3>
+            <h1>{{ savings | number: '1.0-0' }} coins</h1>
+            <p>Keep saving to unlock more rewards!</p>
+          </div>
+
+          <!-- Flip Button -->
+          <button class="flip-button" (click)="flipCard()">
+            <ion-icon name="gift-outline"></ion-icon>
+            Daily Surprise!
+          </button>
+        </div>
+      </div>
+
+      <!-- Back Side - Scratch Card -->
+      <div class="flip-card-back">
+        <div class="scratch-card">
+          <div class="scratch-header">
+            <h3>🎁 Daily Surprise!</h3>
+            <button class="close-button" (click)="flipCard()">
+              <ion-icon name="close"></ion-icon>
+            </button>
+          </div>
+
+          <!-- Scratch Area -->
+          <div class="scratch-container">
+            <canvas #scratchCanvas 
+                    class="scratch-canvas"
+                    (touchstart)="startScratching($event)"
+                    (touchmove)="scratch($event)"
+                    (mousedown)="startScratching($event)"
+                    (mousemove)="scratch($event)"></canvas>
+            
+            <!-- Prize Content (hidden under scratch layer) -->
+            <div class="prize-content" [class.revealed]="isScratched">
+              <div class="prize-icon" [innerHTML]="currentPrize.icon"></div>
+              <h4>{{ currentPrize.title }}</h4>
+              <p>{{ currentPrize.description }}</p>
+              <div *ngIf="currentPrize.coins" class="prize-coins">
+                +{{ currentPrize.coins }} coins!
+              </div>
+            </div>
+          </div>
+
+          <div class="scratch-instructions">
+            <p>👆 Scratch to reveal your surprise!</p>
+          </div>
+
+          <!-- Reset Button -->
+          <button class="reset-button" (click)="resetScratchCard()" [disabled]="!isScratched">
+            <ion-icon name="refresh-outline"></ion-icon>
+            Try Again Tomorrow
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rest of your content remains the same -->
+  <!-- Rectangular cartoon cards -->
+  <div class="cartoon-row">
+    <div class="cartoon-card card-yellow">
+      <div class="card-info">
+        <h3>5 Day Streak!</h3>
+        <p>You're on fire! Keep saving daily!</p>
+      </div>
+      <!-- 👇 Streak Lottie animation with increased size -->
+      <div id="streak-animation" class="card-lottie" style="width: 85px; height: 85px;"></div>
+    </div>
+
+    <div class="cartoon-card card-green">
+      <!-- 👇 Progress Lottie animation with increased size -->
+      <div id="progress-animation" class="card-lottie" style="width: 85px; height: 85px;"></div>
+      <div class="card-info">
+        <h3>Goal Progress</h3>
+        <p>{{ ((savings / goal) * 100) | number: '1.0-0' }}% of ₹{{ goal | number: '1.0-0' }}</p>
+      </div>
+    </div>
+
+    <div class="cartoon-card card-blue">
+      <div class="card-info">
+        <h3>Time Until 18</h3>
+        <p>{{ yearsLeft }} years left — keep growing!</p>
+      </div>
+      <!-- 👇 Until18 Lottie animation -->
+      <div id="until18-animation" class="card-lottie" style="width: 70px; height: 70px;"></div>
+    </div>
+  </div>
+
+  <!-- Bottom section -->
+  <section class="bottom-section">
+    <h2 class="section-title">Tips & Achievements</h2>
+
+    <div class="scroll-row">
+      <div class="tip-card tip1">
+        <img src="https://cdn-icons-png.flaticon.com/512/3048/3048122.png" alt="Lightbulb" />
+        <div class="text">
+          <h4>Smart Saver Tip</h4>
+          <p>Save ₹10 every day — that's ₹300 a month!</p>
+        </div>
+      </div>
+
+      <div class="tip-card tip2">
+        <img src="https://cdn-icons-png.flaticon.com/512/1998/1998610.png" alt="Trophy" />
+        <div class="text">
+          <h4>Achievement Unlocked</h4>
+          <p>You've saved your first ₹1000! Keep it up!</p>
+        </div>
+      </div>
+
+      <div class="tip-card tip3">
+        <img src="https://cdn-icons-png.flaticon.com/512/4149/4149722.png" alt="Rocket" />
+        <div class="text">
+          <h4>Goal of the Month</h4>
+          <p>Reach ₹2000 to earn a Rocket Saver badge!</p>
+        </div>
+      </div>
+
+      <div class="tip-card tip4">
+        <img src="https://cdn-icons-png.flaticon.com/512/679/679922.png" alt="Star" />
+        <div class="text">
+          <h4>Secret Challenge</h4>
+          <p>Save for 7 days straight to unlock Star Mode!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="height: 120px"></div>
+
+  <!-- Add Money Modal -->
+  <ion-modal [isOpen]="showAddModal" cssClass="bottom-sheet" (didDismiss)="closeAddMoneyModal()">
+    <ng-template>
+      <ion-header translucent>
+        <ion-toolbar>
+          <ion-title>Add Money</ion-title>
+          <ion-buttons slot="end">
+            <ion-button fill="clear" (click)="closeAddMoneyModal()">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="modal-content">
+        <div class="sheet-handle"></div>
+
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating">Amount (₹)</ion-label>
+            <ion-input type="number" [(ngModel)]="tempAmount" inputmode="numeric"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Reason</ion-label>
+            <ion-input [(ngModel)]="reason"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Parental Code</ion-label>
+            <ion-input type="password" [(ngModel)]="parentCode" ></ion-input>
+          </ion-item>
+        </ion-list>
+
+        <ion-button expand="block" class="confirm-btn" (click)="confirmAddMoney()">
+          Confirm & Deposit
+        </ion-button>
+
+        <div class="note">
+          Deposits are finalized when your parent confirms via parental code.
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <app-footer></app-footer>
+</ion-content>

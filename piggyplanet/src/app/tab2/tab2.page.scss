@@ -1,0 +1,165 @@
+/* --- HEADER --- */
+.app-header .header-toolbar {
+  --background: linear-gradient(180deg, #ffb76b, #ff914d);
+  backdrop-filter: blur(12px);
+  padding: 12px 20px;
+  height: 110px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border-bottom: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0 0 25px 25px;
+}
+
+/* FIXED HEADER OVERFLOW */
+.header-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  max-width: 60%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header-center .app-name {
+  font-weight: 800;
+  font-size: 24px;
+  color: #1a1a1a;
+}
+.header-center .app-sub {
+  color: #2f2f2f;
+  font-size: 13px;
+}
+
+/* Right side Lottie */
+.header-lottie {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  .lottie-animation {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Background */
+.earn-content {
+  color: #fff;
+  padding: 16px;
+}
+
+/* Intro */
+.intro {
+  text-align: center;
+  margin: 20px 0 10px;
+}
+.intro h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+}
+.intro p {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* TASK CARDS */
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.task-card {
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  color: #1a1a1a;
+}
+.task-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+}
+
+.task-left {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.task-icon {
+  width: 60px;
+  height: 60px;
+  animation: bounce 3s ease-in-out infinite;
+}
+
+.task-left h3 {
+  font-weight: 800;
+  font-size: 20px;
+  margin: 0 0 4px;
+}
+.task-left p {
+  margin: 0;
+  font-size: 14px;
+}
+.reward {
+  font-weight: 600;
+  color: #333;
+  margin-top: 4px;
+}
+
+/* Footer */
+.task-footer {
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* BADGES */
+.status-badge {
+  text-transform: capitalize;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.7);
+  color: #333;
+}
+
+.status-badge.completed {
+  background: #4cd964;
+  color: #fff;
+}
+
+/* NEW BADGE FOR WAITING */
+.status-badge.waiting {
+  background: #ffeb3b;
+  color: #333;
+}
+
+/* Complete button */
+.complete-btn {
+  --background: #fffbe0;
+  --color: #333;
+  font-weight: 800;
+  border-radius: 12px;
+  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
+}
+.complete-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Icon animation */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}

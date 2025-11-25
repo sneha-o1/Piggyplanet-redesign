@@ -1,0 +1,151 @@
+<ion-header class="app-header">
+  <ion-toolbar class="header-toolbar learn-header">
+    <div class="header-content">
+      <!-- Left Icon - Replaced with Lottie animation -->
+      <div class="header-icon-left">
+        <div id="learn-header1-animation" class="header-lottie" style="width: 46px; height: 46px;"></div>
+      </div>
+
+      <!-- Center Title -->
+      <div class="header-center">
+        <div class="app-name">Learn 📚</div>
+        <div class="app-sub">Grow your money knowledge!</div>
+      </div>
+
+      <!-- Right Icon - Replaced with Lottie animation -->
+      <div class="header-icon-right">
+        <div id="learn-header2-animation" class="header-lottie" style="width: 46px; height: 46px;"></div>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content
+  [ngStyle]="{ background: bgGradient, transition: 'background 0.6s ease' }"
+  class="learn-content"
+  [scrollEvents]="true"
+  (ionScroll)="onScroll($event)"
+>
+  <section class="intro">
+    <h2>Learning Center 🧠</h2>
+    <p>Complete lessons to earn coins and learn all about money!</p>
+  </section>
+
+  <section class="lessons-list">
+    <!-- First Lesson Card -->
+    <div class="lesson-card" [style.background]="lessons[0].color">
+      <div class="lesson-top">
+        <div class="lesson-icon">
+          <!-- 👇 Replaced emoji with learn-card1.json -->
+          <div id="learn-card1-animation" class="card-lottie" style="width: 50px; height: 50px;"></div>
+        </div>
+        <div>
+          <h3>{{ lessons[0].title }}</h3>
+          <p>{{ lessons[0].duration }} • {{ lessons[0].reward }} coins</p>
+        </div>
+      </div>
+
+      <p class="lesson-desc">{{ lessons[0].description }}</p>
+
+      <ion-button expand="block" class="start-btn" (click)="openLessonModal(lessons[0])">
+        Start Lesson
+      </ion-button>
+    </div>
+
+    <!-- Second Lesson Card -->
+    <div class="lesson-card" [style.background]="lessons[1].color">
+      <div class="lesson-top">
+        <div class="lesson-icon">
+          <!-- 👇 Replaced emoji with learn-card2.json -->
+          <div id="learn-card2-animation" class="card-lottie" style="width: 50px; height: 50px;"></div>
+        </div>
+        <div>
+          <h3>{{ lessons[1].title }}</h3>
+          <p>{{ lessons[1].duration }} • {{ lessons[1].reward }} coins</p>
+        </div>
+      </div>
+
+      <p class="lesson-desc">{{ lessons[1].description }}</p>
+
+      <ion-button expand="block" class="start-btn" (click)="openLessonModal(lessons[1])">
+        Start Lesson
+      </ion-button>
+    </div>
+
+    <!-- Third Lesson Card -->
+    <div class="lesson-card" [style.background]="lessons[2].color">
+      <div class="lesson-top">
+        <div class="lesson-icon">
+          <!-- 👇 Replaced emoji with learn-card3.json -->
+          <div id="learn-card3-animation" class="card-lottie" style="width: 50px; height: 50px;"></div>
+        </div>
+        <div>
+          <h3>{{ lessons[2].title }}</h3>
+          <p>{{ lessons[2].duration }} • {{ lessons[2].reward }} coins</p>
+        </div>
+      </div>
+
+      <p class="lesson-desc">{{ lessons[2].description }}</p>
+
+      <ion-button expand="block" class="start-btn" (click)="openLessonModal(lessons[2])">
+        Start Lesson
+      </ion-button>
+    </div>
+  </section>
+
+  <!-- 💡 Lesson Modal -->
+  <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeLessonModal()" class="lesson-modal">
+    <ng-template>
+      <ion-content [style.background]="selectedLesson?.color">
+        <div class="modal-header" [style.background]="getModalHeaderGradient()">
+          <div class="modal-title-section">
+            <div class="lesson-icon-large">
+              <!-- 👇 Modal icon replaced with corresponding Lottie animation -->
+              <div [id]="'modal-' + getLessonIndex(selectedLesson) + '-animation'" class="modal-lottie" style="width: 60px; height: 60px;"></div>
+            </div>
+            <h2>{{ selectedLesson?.title }}</h2>
+          </div>
+          <button class="close-btn" (click)="closeLessonModal()">✖</button>
+        </div>
+
+        <div class="modal-body">
+          <div class="lesson-content">
+            <div class="content-header">
+              <h3>Let's Learn! 🧠</h3>
+              <div class="lesson-meta">
+                <span class="meta-item">⏱️ {{ selectedLesson?.duration }}</span>
+                <span class="meta-item">🎯 {{ selectedLesson?.reward }} coins</span>
+              </div>
+            </div>
+            
+            <div class="content-bubble">
+              <p>{{ selectedLesson?.fullContent }}</p>
+            </div>
+
+            <ul class="lesson-points" *ngIf="selectedLesson?.extraPoints">
+              <li *ngFor="let point of selectedLesson?.extraPoints" [style.background]="getPointColor()">
+                {{ point }}
+              </li>
+            </ul>
+          </div>
+
+          <div class="lesson-video">
+            <div class="video-title">Watch & Learn 🎥</div>
+            <iframe
+              *ngIf="safeVideoUrl"
+              [src]="safeVideoUrl"
+              frameborder="0"
+              allowfullscreen
+            ></iframe>
+          </div>
+
+          <ion-button expand="block" class="done-btn" (click)="closeLessonModal()">
+            🎉 Lesson Complete! Claim {{ selectedLesson?.reward }} Coins
+          </ion-button>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <app-footer></app-footer>
+</ion-content>

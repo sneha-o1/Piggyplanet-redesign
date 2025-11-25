@@ -1,0 +1,702 @@
+/* HEADER */
+.app-header .header-toolbar {
+  --background: linear-gradient(180deg, #b8ffcc, #98f0a5);
+  backdrop-filter: blur(12px);
+  padding: 12px 20px;
+  height: 110px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border-bottom: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0 0 25px 25px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+/* Lottie Animation Styles */
+.logo-lottie, .button-lottie, .piggy-lottie, .avatar-lottie, .card-lottie {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Ensure the SVG animation is properly sized */
+  & svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Logo Lottie specific styles */
+.logo-lottie {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Button Lottie specific styles */
+.button-lottie {
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.25));
+}
+
+/* Individual button animation adjustments */
+.add-money-lottie {
+  transform: scale(1.1);
+}
+
+.set-goal-lottie {
+  transform: scale(1.05);
+}
+
+.earn-lottie {
+  transform: scale(1.08);
+}
+
+/* Avatar Lottie specific styles */
+.avatar-lottie {
+  border-radius: 50%;
+  overflow: hidden;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Card Lottie specific styles */
+.card-lottie {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.title-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title-block .app-name {
+  color: #1a1a1a;
+  font-weight: 900;
+  font-size: 26px;
+  margin-bottom: 2px;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+.title-block .app-sub {
+  color: #2e3e2f;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.avatar-wrap {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: visible;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.avatar-wrap:hover {
+  transform: scale(1.05);
+}
+.online-dot {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  width: 14px;
+  height: 14px;
+  background: #2ecc71;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+/* COMMON CONTENT */
+.home-content {
+  color: #fff;
+  padding: 18px;
+  --background: transparent;
+}
+
+/* Greeting, buttons, piggy same as before */
+.greeting {
+  text-align: center;
+  margin-top: 6px;
+}
+.greeting h1 {
+  margin: 6px 0;
+  font-size: 30px;
+  font-weight: 900;
+}
+.greeting .subtitle {
+  color: rgba(255,255,255,0.7);
+  margin-top: 6px;
+}
+
+.top-area {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 18px;
+}
+
+.actions-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 140px;
+}
+
+.cartoon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 140px;
+  height: 90px;
+  border-radius: 20px;
+  font-weight: 800;
+  background: linear-gradient(180deg,#fff6d9,#fff1b8);
+  border: 4px solid #ffd23f;
+  box-shadow: 6px 10px 0 rgba(0,0,0,0.25);
+  color: #1f1f1f;
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.cartoon-btn:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 10px 15px 0 rgba(0,0,0,0.3);
+}
+.add-btn { 
+  background: linear-gradient(180deg,#e6f8ff,#c6eeff); 
+  border-color: #7fd6ff; 
+}
+.square-btn { 
+  background: linear-gradient(180deg,#fff3dd,#ffe2a9); 
+  border-color: #ffcb6e; 
+}
+
+/* Piggy section */
+.piggy-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 520px;
+}
+
+/* Piggy Lottie specific styles */
+.piggy-lottie {
+  animation: piggyBounce 3s ease-in-out infinite;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes piggyBounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.progress-row {
+  width: 100%;
+  margin-top: 10px;
+  text-align: center;
+}
+.progress-row ion-progress-bar {
+  width: 90%;
+  height: 14px;
+  border-radius: 12px;
+}
+.progress-row .progress-text {
+  margin-top: 8px;
+  font-weight: 700;
+}
+
+.savings-square {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+.savings-box {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  border-radius: 30px;
+  background: linear-gradient(180deg, #ffd861, #ffbb33);
+  box-shadow: 10px 12px 0 rgba(0, 0, 0, 0.25);
+  text-align: center;
+  color: #3a2600;
+  overflow: hidden;
+  animation: bounceIn 1s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.savings-box:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 15px 18px 0 rgba(0, 0, 0, 0.3);
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #fff7d4;
+  color: #3a2a00;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 4px 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.coin-glow {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fffbc8 0%, transparent 70%);
+  bottom: 20px;
+  right: 30px;
+  animation: spinGlow 3s linear infinite;
+}
+
+@keyframes spinGlow {
+  0% { transform: rotate(0deg); opacity: 0.8; }
+  50% { opacity: 0.5; }
+  100% { transform: rotate(360deg); opacity: 0.8; }
+}
+
+.savings-info {
+  position: relative;
+  top: 80px;
+}
+.savings-info h3 {
+  font-weight: 800;
+  font-size: 20px;
+}
+.savings-info h1 {
+  font-size: 40px;
+  font-weight: 900;
+  margin: 10px 0;
+}
+.savings-info p {
+  font-size: 14px;
+  color: #4b3b00;
+}
+
+/* New rectangular cartoon cards */
+.cartoon-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.cartoon-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px;
+  padding: 18px 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  color: #fff;
+  min-height: 120px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.cartoon-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+}
+.cartoon-card h3 {
+  font-weight: 800;
+  font-size: 18px;
+  margin: 0 0 6px;
+}
+.cartoon-card p {
+  font-size: 14px;
+  margin: 0;
+  opacity: 0.9;
+}
+.cartoon-card .card-lottie {
+  transition: transform 0.3s ease;
+}
+.cartoon-card:hover .card-lottie {
+  transform: scale(1.1);
+}
+
+/* color themes */
+.card-yellow { background: #f8cf40; color: #3a2a00; }
+.card-green  { background: #48c78e; flex-direction: row-reverse; }
+.card-blue   { background: #6cb8ff; color: #042b4f; }
+
+/* ---- Horizontal Scrolling Cards ---- */
+.bottom-section {
+  margin-top: 35px;
+}
+.section-title {
+  text-align: center;
+  font-weight: 900;
+  font-size: 22px;
+  color: #fff;
+  margin-bottom: 14px;
+  letter-spacing: 0.5px;
+}
+
+/* Scroll container */
+.scroll-row {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 18px;
+  padding: 10px 6px 16px;
+  -webkit-overflow-scrolling: touch;
+}
+.scroll-row::-webkit-scrollbar {
+  display: none;
+}
+
+/* Each Tip Card */
+.tip-card {
+  flex: 0 0 260px;
+  scroll-snap-align: center;
+  border-radius: 22px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  transform: scale(0.96);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.tip-card:hover {
+  transform: scale(1.02) rotate(-1deg);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+}
+
+.tip-card img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+  transition: transform 0.3s ease;
+}
+.tip-card:hover img {
+  transform: scale(1.1);
+}
+.tip-card .text h4 {
+  font-weight: 800;
+  font-size: 16px;
+  margin: 0 0 4px;
+}
+.tip-card .text p {
+  font-size: 13px;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Unique colorful backgrounds */
+.tip1 { background: #ffb84d; }
+.tip2 { background: #8e44ad; }
+.tip3 { background: #27ae60; }
+.tip4 { background: #3498db; }
+
+/* Soft bounce animation */
+@keyframes gentleBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.tip-card img {
+  animation: gentleBounce 3s ease-in-out infinite;
+}
+
+/* Bottom sheet modal */
+ion-modal.bottom-sheet .modal-wrapper {
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  height: 48%;
+  background: #0e0e0e;
+  color: #fff;
+}
+.sheet-handle {
+  width: 48px; height: 6px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 6px;
+  margin: 12px auto 6px;
+}
+.note {
+  text-align:center; color:rgba(255,255,255,0.6);
+  font-size:13px; margin-top:12px;
+}
+
+/* Flip Card Styles */
+.flip-card {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 30px;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.flip-card-front {
+  transform: rotateY(0deg);
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+.flip-card.flipped .flip-card-front {
+  transform: rotateY(-180deg);
+}
+
+.flip-card.flipped .flip-card-back {
+  transform: rotateY(0deg);
+}
+
+/* Flip Button */
+.flip-button {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: linear-gradient(180deg, #ff6b6b, #ff5252);
+  border: 3px solid #fff;
+  border-radius: 20px;
+  padding: 8px 16px;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 10;
+}
+
+.flip-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Scratch Card Styles */
+.scratch-card {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #4ecdc4, #44a08d);
+  border-radius: 30px;
+  box-shadow: 10px 12px 0 rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  position: relative;
+  animation: bounceIn 1s ease;
+}
+
+.scratch-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.scratch-header h3 {
+  margin: 0;
+  color: white;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.close-button {
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.close-button:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
+
+.scratch-container {
+  position: relative;
+  width: 280px;
+  height: 180px;
+  margin: 10px auto;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.scratch-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="none" stroke="%23000" stroke-width="2"/></svg>') 20 20, auto;
+  touch-action: none;
+}
+
+.prize-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #ffe66d, #ffd93d);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.prize-content.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.prize-icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+  animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.prize-content h4 {
+  margin: 0 0 8px 0;
+  color: #2d3436;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.prize-content p {
+  margin: 0 0 12px 0;
+  color: #636e72;
+  font-size: 14px;
+}
+
+.prize-coins {
+  background: #00b894;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 16px;
+  animation: pulse 1.5s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.scratch-instructions {
+  text-align: center;
+  padding: 10px;
+  color: white;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0 20px;
+  border-radius: 10px;
+}
+
+.reset-button {
+  display: block;
+  width: calc(100% - 40px);
+  margin: 15px auto;
+  background: linear-gradient(180deg, #fd79a8, #e84393);
+  border: 3px solid #fff;
+  border-radius: 20px;
+  padding: 12px;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.reset-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.reset-button:not(:disabled):hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Update savings box to work with flip */
+.savings-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  background: linear-gradient(180deg, #ffd861, #ffbb33);
+  box-shadow: 10px 12px 0 rgba(0, 0, 0, 0.25);
+  text-align: center;
+  color: #3a2600;
+  overflow: hidden;
+  animation: bounceIn 1s ease;
+}
+
+/* Make sure other elements don't interfere */
+.savings-square {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}

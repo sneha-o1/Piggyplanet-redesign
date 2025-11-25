@@ -1,0 +1,89 @@
+<ion-content
+  [ngStyle]="{ background: bgGradient, transition: 'background 0.7s ease' }"
+  class="profile-content"
+  [scrollEvents]="true"
+  (ionScroll)="onScroll($event)"
+>
+  <!-- Curved Gradient Header -->
+  <div class="profile-header">
+    <div class="header-background"></div>
+
+    <div class="header-title">
+      <h1>My Profile</h1>
+      <p>Welcome back, {{ user.name }}!</p>
+    </div>
+
+    <!-- Centered Avatar - Replaced with Lottie Animation -->
+    <div class="avatar-container">
+      <div id="avatar-lottie" class="avatar-lottie"></div>
+      <div class="status-dot"></div>
+    </div>
+  </div>
+
+  <!-- Profile Info Section -->
+  <section class="profile-info">
+    <div class="info-card pink">
+      <ion-icon name="calendar-outline"></ion-icon>
+      <div>
+        <h3>Age</h3>
+        <p>{{ user.age }} years</p>
+      </div>
+    </div>
+
+    <div class="info-card yellow">
+      <ion-icon name="wallet-outline"></ion-icon>
+      <div>
+        <h3>Total Coins Earned</h3>
+        <p>{{ user.totalCoins | number }}</p>
+      </div>
+    </div>
+
+    <div class="info-card blue">
+      <ion-icon name="cash-outline"></ion-icon>
+      <div>
+        <h3>Total Coins Spent</h3>
+        <p>{{ user.spentCoins | number }}</p>
+      </div>
+    </div>
+
+    <div class="info-card green"  routerLink="/settings">
+      <ion-icon name="settings-outline"></ion-icon>
+      <div>
+        <h3>Settings</h3>
+        <p>Manage account preferences</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Extra Fun Cards -->
+  <section class="extras">
+    <h2>Achievements</h2>
+    <div class="achievements">
+      <div class="badge-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2583/2583340.png" alt="Saver" />
+        <h4>Super Saver</h4>
+        <p>Saved over 2000 coins!</p>
+      </div>
+      <div class="badge-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/1998/1998610.png" alt="Learner" />
+        <h4>Money Learner</h4>
+        <p>Completed 5 lessons</p>
+      </div>
+      <div class="badge-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3081/3081441.png" alt="Goal Setter" />
+        <h4>Goal Setter</h4>
+        <p>Achieved 3 savings goals</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="progress">
+    <h2>Account Progress</h2>
+    <ion-progress-bar [value]="user.progress / 100" mode="md"></ion-progress-bar>
+    <p>{{ user.progress }}% Complete</p>
+  </section>
+
+  <div style="height: 100px"></div>
+
+  <app-footer></app-footer>
+</ion-content>

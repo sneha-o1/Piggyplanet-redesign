@@ -1,0 +1,379 @@
+<ion-header class="app-header">
+  <ion-toolbar class="header-toolbar">
+    <div class="header-content">
+      <div class="header-left">
+        <!-- 👇 Replaced back icon with Lottie animation -->
+        <div id="back-animation" class="back-lottie" style="width: 36px; height: 36px;" (click)="goBack()"></div>
+      </div>
+
+      <div class="header-center">
+        <div class="app-name">My Goals 🎯</div>
+        <div class="app-sub">Save for what you want!</div>
+      </div>
+
+      <div class="header-right">
+        <!-- 👇 Replaced profile icon with Lottie animation -->
+        <div id="goal-header-animation" class="goal-header-lottie" style="width: 46px; height: 46px;" (click)="openProfile()"></div>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content
+  [ngStyle]="{ background: bgGradient, transition: 'background 0.6s ease' }"
+  class="goals-content"
+  [scrollEvents]="true"
+  (ionScroll)="onScroll($event)"
+>
+  <section class="intro">
+    <h2>Save for What You Want!</h2>
+    <p>Current Balance: <b>{{ balance | number }} coins</b></p>
+  </section>
+
+  <section class="goals-list">
+    <!-- First Goal Card - Bicycle -->
+    <div class="goal-card" *ngIf="goals[0]" [style.background]="goals[0].color">
+      <div class="goal-top">
+        <div class="goal-image">
+          <!-- 👇 Replaced image with bicycle Lottie animation -->
+          <div id="bicycle-animation" class="goal-lottie" style="width: 120px; height: 120px;"></div>
+        </div>
+
+        <div class="goal-header">
+          <h3>{{ goals[0].title }}</h3>
+          <p>{{ goals[0].description }}</p>
+        </div>
+      </div>
+
+      <div class="goal-progress">
+        <div class="goal-stats">
+          <span>{{ goals[0].saved | number }} coins</span>
+          <span>Goal: {{ goals[0].target | number }} coins</span>
+        </div>
+
+        <ion-progress-bar [value]="getProgressValue(0)"></ion-progress-bar>
+
+        <p class="progress-text">
+          {{ getProgressPercentage(0) | number: '1.0-0' }}% Complete
+        </p>
+      </div>
+
+      <div class="goal-meta">
+        <p><ion-icon name="calendar-outline"></ion-icon> Deadline: {{ goals[0].deadline }}</p>
+        <p><ion-icon name="gift-outline"></ion-icon> Parent matching 25%!</p>
+      </div>
+
+      <div class="goal-actions">
+        <ion-button expand="block" class="deposit-btn" (click)="openDepositModal(goals[0])">
+          <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+          Deposit to Goal
+        </ion-button>
+
+        <ion-button fill="clear" color="danger" class="delete-compact" (click)="confirmDelete(goals[0])">
+          <ion-icon slot="start" name="trash-outline"></ion-icon>
+          Delete
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- Second Goal Card - Art Supplies -->
+    <div class="goal-card" *ngIf="goals[1]" [style.background]="goals[1].color">
+      <div class="goal-top">
+        <div class="goal-image">
+          <!-- 👇 Replaced image with art Lottie animation -->
+          <div id="art-animation" class="goal-lottie" style="width: 120px; height: 120px;"></div>
+        </div>
+
+        <div class="goal-header">
+          <h3>{{ goals[1].title }}</h3>
+          <p>{{ goals[1].description }}</p>
+        </div>
+      </div>
+
+      <div class="goal-progress">
+        <div class="goal-stats">
+          <span>{{ goals[1].saved | number }} coins</span>
+          <span>Goal: {{ goals[1].target | number }} coins</span>
+        </div>
+
+        <ion-progress-bar [value]="getProgressValue(1)"></ion-progress-bar>
+
+        <p class="progress-text">
+          {{ getProgressPercentage(1) | number: '1.0-0' }}% Complete
+        </p>
+      </div>
+
+      <div class="goal-meta">
+        <p><ion-icon name="calendar-outline"></ion-icon> Deadline: {{ goals[1].deadline }}</p>
+        <p><ion-icon name="gift-outline"></ion-icon> Parent matching 25%!</p>
+      </div>
+
+      <div class="goal-actions">
+        <ion-button expand="block" class="deposit-btn" (click)="openDepositModal(goals[1])">
+          <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+          Deposit to Goal
+        </ion-button>
+
+        <ion-button fill="clear" color="danger" class="delete-compact" (click)="confirmDelete(goals[1])">
+          <ion-icon slot="start" name="trash-outline"></ion-icon>
+          Delete
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- Additional goals will use images as before -->
+    <div
+      class="goal-card"
+      *ngFor="let goal of goals.slice(2)"
+      [style.background]="goal.color"
+    >
+      <div class="goal-top">
+        <div class="goal-image">
+          <img [src]="goal.image" alt="{{ goal.title }}" />
+        </div>
+
+        <div class="goal-header">
+          <h3>{{ goal.title }}</h3>
+          <p>{{ goal.description }}</p>
+        </div>
+      </div>
+
+      <div class="goal-progress">
+        <div class="goal-stats">
+          <span>{{ goal.saved | number }} coins</span>
+          <span>Goal: {{ goal.target | number }} coins</span>
+        </div>
+
+        <ion-progress-bar [value]="goal.saved / goal.target"></ion-progress-bar>
+
+        <p class="progress-text">
+          {{ ((goal.saved / goal.target) * 100) | number: '1.0-0' }}% Complete
+        </p>
+      </div>
+
+      <div class="goal-meta">
+        <p><ion-icon name="calendar-outline"></ion-icon> Deadline: {{ goal.deadline }}</p>
+        <p><ion-icon name="gift-outline"></ion-icon> Parent matching 25%!</p>
+      </div>
+
+      <div class="goal-actions">
+        <ion-button expand="block" class="deposit-btn" (click)="openDepositModal(goal)">
+          <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+          Deposit to Goal
+        </ion-button>
+
+        <ion-button fill="clear" color="danger" class="delete-compact" (click)="confirmDelete(goal)">
+          <ion-icon slot="start" name="trash-outline"></ion-icon>
+          Delete
+        </ion-button>
+      </div>
+    </div>
+  </section>
+
+  <div style="height: 120px"></div>
+
+  <!-- Create Goal Modal -->
+  <ion-modal [isOpen]="isCreateModalOpen" (didDismiss)="closeCreateModal()" class="goal-modal create-goal-modal">
+    <ng-template>
+      <div class="modal-container">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <div class="modal-title-section">
+            <div class="modal-icon">🎯</div>
+            <h2>Create a New Goal</h2>
+          </div>
+          <button class="close-btn" (click)="closeCreateModal()">
+            <ion-icon name="close"></ion-icon>
+          </button>
+        </div>
+
+        <!-- Modal Content -->
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="form-group">
+              <label class="form-label">What are you saving for? ✨</label>
+              <input 
+                type="text" 
+                [(ngModel)]="newGoal.title" 
+                placeholder="e.g., New Bicycle, Gaming Console, Art Supplies"
+                class="form-input"
+              >
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Target Amount 🎯</label>
+                <div class="input-with-icon">
+                  <span class="input-icon">₱</span>
+                  <input 
+                    type="number" 
+                    [(ngModel)]="newGoal.target" 
+                    placeholder="2000"
+                    class="form-input"
+                  >
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Already Saved 💰</label>
+                <div class="input-with-icon">
+                  <span class="input-icon">₱</span>
+                  <input 
+                    type="number" 
+                    [(ngModel)]="newGoal.saved" 
+                    placeholder="0"
+                    class="form-input"
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Deadline 📅</label>
+              <input 
+                type="text" 
+                [(ngModel)]="newGoal.deadline" 
+                placeholder="e.g., 01/09/26"
+                class="form-input"
+              >
+            </div>
+
+            <!-- Color Selection -->
+            <div class="form-group">
+              <label class="form-label">Choose a Color Theme 🎨</label>
+              <div class="color-options">
+                <button 
+                  *ngFor="let color of colorOptions" 
+                  class="color-option"
+                  [style.background]="color.value"
+                  [class.selected]="newGoal.color === color.value"
+                  (click)="newGoal.color = color.value"
+                >
+                  <div class="color-preview" [style.background]="color.value"></div>
+                  <span class="color-name">{{ color.name }}</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Goal Image URL (Optional) 🖼️</label>
+              <input 
+                type="text" 
+                [(ngModel)]="newGoal.image" 
+                placeholder="https://example.com/image.png"
+                class="form-input"
+              >
+            </div>
+
+            <!-- Quick Tips -->
+            <div class="tips-section">
+              <div class="tip-card">
+                <div class="tip-icon">💡</div>
+                <div class="tip-content">
+                  <strong>Pro Tip:</strong> Set realistic goals and celebrate small milestones!
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="modal-actions">
+              <button class="cancel-btn" (click)="closeCreateModal()">
+                Cancel
+              </button>
+              <button 
+                class="create-btn" 
+                (click)="createGoal()" 
+                [disabled]="!isCreateGoalValid()"
+                [class.disabled]="!isCreateGoalValid()"
+              >
+                <span class="btn-icon">🚀</span>
+                Create Goal
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ion-modal>
+
+  <!-- Deposit Modal (Cartoon Styled) -->
+  <ion-modal [isOpen]="isDepositModalOpen" (didDismiss)="closeDepositModal()" class="deposit-modal">
+    <ng-template>
+      <div class="deposit-modal-container">
+        <!-- Modal Header -->
+        <div class="deposit-modal-header">
+          <div class="deposit-title-section">
+            <div class="deposit-icon">💰</div>
+            <h2>Deposit to {{ depositTarget?.title }}</h2>
+          </div>
+          <button class="deposit-close-btn" (click)="closeDepositModal()">
+            <ion-icon name="close"></ion-icon>
+          </button>
+        </div>
+
+        <!-- Modal Content -->
+        <div class="deposit-modal-content">
+          <div class="deposit-modal-body">
+            <!-- Balance Display -->
+            <div class="balance-card">
+              <div class="balance-icon">💎</div>
+              <div class="balance-info">
+                <span class="balance-label">Your Balance</span>
+                <span class="balance-amount">{{ balance | number }} coins</span>
+              </div>
+            </div>
+
+            <!-- Amount Input -->
+            <div class="deposit-form-group">
+              <label class="deposit-form-label">How much to deposit? 🎯</label>
+              <div class="deposit-input-container">
+                <span class="deposit-input-icon">🪙</span>
+                <input 
+                  type="number" 
+                  [(ngModel)]="depositAmount" 
+                  placeholder="Enter coins amount"
+                  class="deposit-form-input"
+                >
+              </div>
+            </div>
+
+            <!-- Parent Match Info -->
+            <div class="match-card">
+              <div class="match-icon">🎁</div>
+              <div class="match-content">
+                <strong>Parent Bonus!</strong> 25% match applied automatically! 🚀
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="deposit-modal-actions">
+              <button class="deposit-cancel-btn" (click)="closeDepositModal()">
+                <span class="btn-icon">←</span>
+                Cancel
+              </button>
+              <button 
+                class="deposit-confirm-btn" 
+                (click)="confirmDeposit()" 
+                [disabled]="!canDeposit()"
+                [class.disabled]="!canDeposit()"
+              >
+                <span class="btn-icon">💫</span>
+                Deposit Now!
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ion-modal>
+</ion-content>
+
+<!-- Footer with Create Goal button -->
+<ion-footer translucent class="create-footer">
+  <ion-toolbar>
+    <ion-button expand="block" class="create-goal-btn" (click)="openCreateModal()">
+      <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+      Create a New Goal
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
